@@ -1,0 +1,46 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.input-place {
+  height: 30px;
+}
+
+button {
+  margin-left: 20px;
+  padding: 0 5px;
+  height: 30px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li:first-child {
+  margin-top: 20px;
+}
+
+li {
+  width: 255px;
+  display: flex;
+  margin-bottom: 5px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.delete {
+  color: red;
+  cursor: pointer;
+  margin-left: auto;
+}
