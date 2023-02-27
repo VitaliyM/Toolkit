@@ -1,61 +1,27 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import TodoList from './components/TodoList';
+import { addTodo } from './store/todoSlice';
+
 import './App.css';
+import InputField from './components/InputField';
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  
   const [text, setText] = useState('');
+  const dispatch = useDispatch();
 
-  const toggleTodoComplete = (todoId) => {
-    setTodos(
-      todos.map(
-        todo => {
-          if (todo.id !== todoId) return todo;
+  const addTask = () => {
+    dispatch(addTodo({text}));
+    setText("");
+  };
 
-          return {
-            ...todo,
-            completed: !todo.completed
-          }
-        }
-      )
-    )
-  }
-
-  const addTodo = () => {
-    if (text.trim().length) {        //Убрать все пробелы, проверить есть ли длина
-      setTodos([
-        ...todos,
-        {
-          id: new Date().toISOString(),
-          text,
-          completed: false,
-        }
-      ])
-      setText('');                  //Сбрасываем поле на пустое значение
-    }
-  }
-
-  const removeTodo = (todoId) => {
-    setTodos(todos.filter(todo => todo.id !== todoId)) //Метод filter возвращает все элементы соответсвующие условию
-  }
 
   return (
     <div className="App">
-      <label>
-        <input className='input-place' value={text} onChange={ (e) => setText(e.target.value) } />
-        <button onClick={addTodo}>Add Todo</button>
-      </label>
+      <InputField text={text} handleInput={setText} handleSubmit={addTask} />
 
-      <ul>
-        {
-          todos.map(todo =>
-            <li key={todo.id}>
-              <input type="checkbox" checked={todo.completed} onChange={() => toggleTodoComplete(todo.id)} />
-              <span>{todo.text}</span>
-              <span className='delete' onClick={() => removeTodo(todo.id)}>&times;</span>
-            </li>)
-        }
-
-      </ul>
+      <TodoList />
     </div>
   );
 }
